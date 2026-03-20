@@ -1,6 +1,7 @@
 # yaml编辑器，苹果Textastic Code编辑，Windows VS Code编辑，安卓Acode编辑
 # 原文件地址 https://github.com/HenryChiao/MIHOMO_YAMLS/tree/main/THEYAMLS/General_Config/SHICHUNHUI88  作者 SHICHUNHUI88  文件 Clash-Airport.yaml机场版
 # 在原文件基础上更改以下设置：设置节点信息，关闭ipv6，设置UI面板，入站监听，设置tun，设置geo数据库，设置DNS，设置代理分组，设置规则，设置规则集，
+# IPv6：关 TUN模式：关  代理组依据路由规则自定义，路由规则和规则集自定义，
 
 
 # **=============================== 节点健康延迟检测 ===============================**
