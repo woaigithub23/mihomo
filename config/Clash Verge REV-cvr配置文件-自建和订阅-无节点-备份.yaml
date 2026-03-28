@@ -267,7 +267,6 @@ rules:
   - RULE-SET,custom_direct_domain,直连
 
   # 局域网（LAN）与私有网络专用域名
-  - RULE-SET,private_ip,直连,no-resolve
   - RULE-SET,private,直连
 
   # 国内应用 服务直连
@@ -283,7 +282,6 @@ rules:
   - RULE-SET,azure,直连
   - RULE-SET,aws,直连
   - RULE-SET,cloudflare,直连
-  - RULE-SET,cloudflare_ip,直连,no-resolve
   - RULE-SET,oracle,直连
   
 
@@ -295,8 +293,6 @@ rules:
 
   # 常用服务
   # - RULE-SET,microsoft,🖥微软
-  # - IP-ASN,8075,🖥微软,no-resolve
-  # - IP-ASN,8070,🖥微软,no-resolve
   - RULE-SET,onedrive,📒OneDrive
   - RULE-SET,apple-cn,直连
   - RULE-SET,apple-update,直连
@@ -316,7 +312,6 @@ rules:
   - RULE-SET,bytedance-ai-!cn,🤖字节海外AI
  
   - RULE-SET,google,🔍Google
-  - RULE-SET,google_ip,🔍Google,no-resolve
   - RULE-SET,youtube,📺Youtube  
   - RULE-SET,github,🚀默认代理
   - RULE-SET,spotify,🎵Spotify
@@ -325,16 +320,12 @@ rules:
 
   # - RULE-SET,x,📲推特Grok
   - RULE-SET,twitter,📲推特Grok
-  - RULE-SET,twitter_ip,📲推特Grok,no-resolve
   # - RULE-SET,facebook,📲Facebook
-  # - RULE-SET,facebook_ip,📲Facebook,no-resolve
   - RULE-SET,telegram,📲Telegram
-  - RULE-SET,telegram_ip,📲Telegram,no-resolve
   - RULE-SET,reddit,🚀默认代理
 
   # 其他海外服务
   # - RULE-SET,netflix,🎥NETFLIX
-  # - RULE-SET,netflix_ip,🎥NETFLIX,no-resolve
   - RULE-SET,speedtest,🚀默认代理
   - RULE-SET,greatfire,🚀默认代理
 
@@ -345,6 +336,17 @@ rules:
   - RULE-SET,tld-!cn,🚀默认代理
   - RULE-SET,gfw,🚀默认代理
 
+  # 代理IP
+  - RULE-SET,cloudflare_ip,直连,no-resolve
+  - RULE-SET,google_ip,🔍Google,no-resolve
+  - RULE-SET,twitter_ip,📲推特Grok,no-resolve
+  - RULE-SET,telegram_ip,📲Telegram,no-resolve
+  # - RULE-SET,facebook_ip,📲Facebook,no-resolve
+  # - RULE-SET,netflix_ip,🎥NETFLIX,no-resolve
+  # - IP-ASN,8075,🖥微软,no-resolve
+  # - IP-ASN,8070,🖥微软,no-resolve
+
+  
   # 国内直连 
   - RULE-SET,category-wiki-cn,直连
   - RULE-SET,category-dev-cn,直连
@@ -354,8 +356,11 @@ rules:
   - RULE-SET,category-entertainment-cn,直连
   - RULE-SET,category-games-cn,直连
   - RULE-SET,direct,直连
-  - RULE-SET,cn_ip,直连,no-resolve  
   - RULE-SET,cn,直连  
+  
+  # 直连IP
+  - RULE-SET,private_ip,直连,no-resolve
+  - RULE-SET,cn_ip,直连,no-resolve  
 
   - MATCH,🚀默认代理
 
