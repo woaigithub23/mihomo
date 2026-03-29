@@ -70,7 +70,7 @@ global-client-fingerprint: chrome
 log-level: warning
 ipv6: false
 etag-support: true
-# 进程匹配模式，控制是否让 Clash 去匹配进程，always 强制匹配所有进程，strict 默认由Clash判断是否开启，off 不匹配进程 推荐在路由器上使用此模式
+# 进程匹配模式，控制是否让 Clash 去匹配进程，always Windows系统推荐，强制匹配所有进程。strict 默认由Clash判断是否开启。off 不匹配进程 推荐在路由器上使用此模式
 find-process-mode: always
 unified-delay: true
 # TCP 并发
@@ -131,14 +131,15 @@ listeners:
 tun:
   enable: false
   device: mihomo
-  # stack选项：system首选稳定/gvisor适合UDP游戏/mixed自动混合
-  stack: system
-  mtu: 1500
+  # stack选项：mixed首选，自动混合/system稳定/gvisor适合UDP游戏
+  stack: mixed
+  # mtu 最大传输单元。主路由wan口mtu1480，clash需要20-40字节封装，经测试1440最合适，其他值影响网速。
+  mtu: 1440
   strict-route: true
   dns-hijack: ["any:53", "tcp://any:53"]
   auto-route: true
-  auto-redirect: true
   auto-detect-interface: true
+  # auto-redirect: true
   # gso: true
   # gso-max-size: 65536
   # endpoint-independent-nat: true
@@ -263,8 +264,8 @@ rules:
 
   # 域名代理
   - DOMAIN-SUFFIX,ip.sb,🏠家宽节点
-  - DOMAIN-SUFFIX,browserleaks.com,🚀默认代理
   - RULE-SET,custom_direct_domain,直连
+  # - DOMAIN-SUFFIX,browserleaks.com,🚀默认代理  
 
   # 局域网（LAN）与私有网络专用域名
   - RULE-SET,private,直连
