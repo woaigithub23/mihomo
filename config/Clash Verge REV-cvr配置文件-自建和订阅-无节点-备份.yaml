@@ -55,6 +55,8 @@ proxies:
   # 在下面添加自建节点信息yaml格式
 
 
+
+
 # **=============================== 全局配置 ===============================**
 
 # port: 7890
@@ -147,6 +149,7 @@ tun:
   # disable-icmp-forwarding: true
   # 仅支持 Linux route-exclude-address-set: [""]
 
+
 # **=============================== DNS ===============================**
 
 dns-anchor:
@@ -157,6 +160,7 @@ dns:
   enable: true
   listen: 0.0.0.0:1053
   ipv6: false
+  #当respect-rules: true时，必须配置proxy-server-nameserver，不要和prefer-h3同时使用。
   respect-rules: true
   prefer-h3: false
   # cache-algorithm支持的算法：lru: Least Recently Used, 默认值 arc: Adaptive Replacement Cache
@@ -172,27 +176,31 @@ dns:
   # use-system-hosts: true
 
   # default-nameserver设置如谷歌DNS无法联网，使用阿里DNS
-  default-nameserver: ["https://223.5.5.5/dns-query", "https://223.6.6.6/dns-query"]
+  default-nameserver: ["tls://223.5.5.5", "tls://223.6.6.6"]
+  # default-nameserver: ["https://223.5.5.5/dns-query", "https://223.6.6.6/dns-query"]
+  
   # 使用代理进行DNS解析，可以使用代理组--名称和代理组一致，或复制粘贴创建一个名为 美国服务器节点 的节点。 
-  nameserver: ["https://dns.google/dns-query#proxy=🚀默认代理", "https://dns.google/dns-query#proxy=美国服务器节点", "https://dns.google/dns-query#proxy=🦅美国节点", "https://dns.google/dns-query"]
+  nameserver: ["https://8.8.8.8/dns-query", "https://dns.google/dns-query"]  
+  # nameserver: ["https://dns.google/dns-query#proxy=🚀默认代理", "https://dns.google/dns-query#proxy=美国服务器节点", "https://dns.google/dns-query#proxy=🦅美国节点", "https://dns.google/dns-query"]
   # nameserver: ["https://223.5.5.5/dns-query", "https://dns.alidns.com/dns-query"]
   direct-nameserver: ["https://223.5.5.5/dns-query", "https://dns.alidns.com/dns-query"]
   proxy-server-nameserver: ["https://223.5.5.5/dns-query", "https://dns.alidns.com/dns-query"]
+  # proxy-server-nameserver-policy:
 
+  # 回落备用DNS服务器  
   # fallback: ["https://dns.google/dns-query"]
   # fallback-filter: {geoip: true, geoip-code: CN, geosite: [gfw,geolocation-!cn], ipcidr: ["240.0.0.0/4"]}
-  # 配置direct-nameserver-follow-policy: true 和nameserver-policy会使访问国内站延迟增高。  
-  # direct-nameserver-follow-policy: true
+  
+  # 配置respect-rules: true足够，不必设置nameserver-policy。使用direct-nameserver-follow-policy: true 和nameserver-policy 前提是 respect-rules: false ，否则，访问国内站延迟增高。
+  #direct-nameserver-follow-policy: true
   #nameserver-policy:
     #"geosite:category-ads-all": ["https://dns.adguard.com/dns-query"]
     #"geosite:apple-cn,paypal,ifast,wise,alibaba,tencent,jd,douyin,xiaohongshu": *cn-dns
     #"geosite:private,cn,category-ai-cn,category-cdn-cn,category-ntp-cn,category-bank-cn,category-media-cn,category-social-media-cn,category-entertainment-cn": *cn-dns
     #"geosite:category-collaborate-cn,category-securities-cn,category-education-cn,category-netdisk-cn,category-httpdns-cn,category-games-cn,category-wiki-cn,category-dev-cn": *cn-dns
-
-    #"geosite:google,youtube,telegram,twitter,facebook,binance,okx,netflix,openai,google-gemini,bytedance-ai-!cn,tiktok,instagram,whatsapp,greatfire": *global-dns
+    #"geosite:google,youtube,telegram,twitter,facebook,binance,okx,netflix,openai,google-gemini,bytedance@!cn,tiktok,instagram,whatsapp,greatfire": *global-dns
     #"geosite:github,microsoft,onedrive": *global-dns
     #"geosite:gfw,tld-!cn,category-social-media-!cn,geolocation-!cn,category-ai-!cn,category-cdn-!cn,category-scholar-!cn,category-browser-!cn": *global-dns
-
 
 
 # **=============================== DNS 域名嗅探 ===============================**
@@ -235,7 +243,7 @@ proxy-groups:
   - {name: "📲Instagram", type: select, proxies: ["🚀默认代理", "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
   - {name: "🎵Spotify", type: select, proxies: ["🚀默认代理", "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
   - {name: "🤖OpenAI", type: select, proxies: ["🚀默认代理",  "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
-  - {name: "🤖字节海外AI", type: select, proxies: ["🚀默认代理", "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
+  - {name: "🤖字节海外&AI", type: select, proxies: ["🚀默认代理", "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
   - {name: "💶PayPal", type: select, proxies: ["直连", "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
   - {name: "💰币安", type: select, proxies: ["直连", "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
   - {name: "💰欧易", type: select, proxies: ["直连", "🦅美国节点", "🏠家宽节点", "🇯🇵日本节点", "🇹🇼台湾节点", "🇭🇰香港节点", "🇸🇬狮城节点"]}
@@ -301,7 +309,7 @@ rules:
   - RULE-SET,apple-update,直连
   - RULE-SET,apple,直连
 
-  # 国外应用代理
+  # 国外应用
   - RULE-SET,wise,直连
   - RULE-SET,paypal,💶PayPal
   - RULE-SET,binance,💰币安
@@ -312,7 +320,7 @@ rules:
   - RULE-SET,xai,📲推特Grok
   - RULE-SET,openai,🤖OpenAI
   # - RULE-SET,anthropic-claude,🤖Claude
-  - RULE-SET,bytedance-ai-!cn,🤖字节海外AI
+  - RULE-SET,bytedance@!cn,🤖字节海外&AI
  
   - RULE-SET,google,🔍Google
   - RULE-SET,youtube,📺Youtube  
@@ -353,7 +361,8 @@ rules:
   - RULE-SET,category-entertainment-cn,直连
   - RULE-SET,category-games-cn,直连
   - RULE-SET,direct,直连
-  - RULE-SET,cn,直连    
+  - RULE-SET,cn,直连  
+  
 
   # 代理IP
   - RULE-SET,cloudflare_ip,直连,no-resolve
@@ -487,7 +496,7 @@ rule-providers:
   gemini: { <<: *mrs-domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.mrs" }
   openai: { <<: *mrs-domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.mrs" }
   anthropic-claude: {<<: *mrs-domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/anthropic.mrs"}
-  bytedance-ai-!cn: {<<: *mrs-domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bytedance-ai-!cn.mrs"}
+  bytedance@!cn: {<<: *mrs-domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bytedance@!cn.mrs"}
   xai: { <<: *mrs-domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/xai.mrs" }
 
 
@@ -512,10 +521,5 @@ rule-providers:
 
 # mihomo官方mrs地址，替换private  geosite https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs 
 # mihomo官方mrs地址，替换private  geoip https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs 
-
-
-
-
-
 
 
